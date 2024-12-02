@@ -63,7 +63,7 @@ class Produk extends BaseController {
     }
 
     public function hapus(){
-        $produk_id = $this->request->getVar('ProdukModel');
+        $produk_id = $this->request->getVar('produk_id');
 
         if($produk_id){
             // Memanggil model untuk menghapus produk
@@ -81,26 +81,26 @@ class Produk extends BaseController {
 
         // Fungsi untuk mendapatkan produk berdasarkan ID
     public function get_produk_by_id(){
-        $produk_id = $this->produkmodel->get('ProdukModel');
+        $produk_id = $this->request->getVar('produk_id');
 
         if($produk_id){
-            $produk = $this->produkmodel->get_produk_by_id($produk_id);
+            $produk = $this->produkmodel->find($produk_id);
             if($produk){
-                echo json_encode(['status' => 'success', 'produk' => $produk]);
+                return response()->setJSON(['status' => 'success', 'produk' => $produk]);
             } else {
-                echo json_encode(['status' => 'error', 'message' => 'Produk tidak ditemukan']);
+                return response()->setJSON(['status' => 'error', 'message' => 'Produk tidak ditemukan']);
             }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'ID produk tidak valid']);
+            return response()->setJSON(['status' => 'error', 'message' => 'ID produk tidak valid']);
         }
     }
 
     // Fungsi untuk update produk
     public function update_produk(){
-        $produk_id = $this->produkmodel->post('produk_id');
-        $nama_produk = $this->produkmodel->post('nama_produk');
-        $harga = $this->produkmodel->post('harga');
-        $stok = $this->produkmodel->post('stok');
+        $produk_id = $this->request->getVar('produk_id');
+        $nama_produk = $this->request->getVar('nama_produk');
+        $harga = $this->request->getVar('harga');
+        $stok = $this->request->getVar('stok');
 
         if($produk_id && $nama_produk && $harga && $stok){
             $data = [
@@ -109,7 +109,7 @@ class Produk extends BaseController {
                 'stok' => $stok
             ];
 
-            $hasil = $this->produkmodel->update_produk($produk_id, $data);
+            $hasil = $this->produkmodel->update($produk_id, $data);
 
             if($hasil){
                 echo json_encode(['status' => 'success', 'message' => 'Produk berhasil diupdate']);

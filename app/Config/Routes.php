@@ -9,8 +9,8 @@ $routes->get('/produk', 'Produk::index');
 $routes->get('/produk/tampil', 'Produk::tampil_produk');
 $routes->post('/produk/simpan', 'Produk::simpan_produk');
 $routes->post('/produk/hapus', 'Produk::hapus');
-$routes->get('produk/get_produk_by_id', 'Produk::get_produk_by_id');
-$routes->post('produk/update_produk', 'Produk::update_produk');
+$routes->post('/produk/get_produk_by_id', 'Produk::get_produk_by_id');
+$routes->post('/produk/update_produk', 'Produk::update_produk');
 
 $routes->get('/pelanggan', 'Pelanggan::index');
 $routes->get('/pelanggan/tampil', 'Pelanggan::tampil_pelanggan');
